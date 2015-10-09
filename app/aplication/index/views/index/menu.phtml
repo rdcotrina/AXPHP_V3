@@ -1,0 +1,177 @@
+<?php
+/*
+ * Documento   : menu
+ * Creado      : 04-feb-2014, 9:40:21
+ * Autor       : RDCC
+ * Descripcion :
+ */
+$NV1 = '';
+$NV2 = '';
+$NV3 = '';
+$NV4 = '';
+$NV5 = '';
+$NV6 = '';
+
+if (Obj()->Session->get('sys_menu')):
+    $dominioTMP = '';
+    $permisos = array();
+
+    foreach (Obj()->Session->get('sys_menu') as $value) :
+
+        /* acciones de una opcion */
+        $acciones = Obj()->IndexController->getAccionesOpcion($value['idrolopciones']);
+        
+        $aliasopcion = $value['alias']; #alias de la opcion
+
+        /* creando array de permisos */
+
+        foreach ($acciones as $val) {
+            $permisos[] = array(
+                'opcion' => $aliasopcion . $val['alias'], #se concatena con alias de accion
+                'accion' => $val['accion'],
+                'icono' => $val['icono'],
+                'theme' => $val['theme'],
+                'permiso' => 1
+            );
+        }
+
+    endforeach;
+endif;
+/* crear sesion de permisos */
+Obj()->Session->set('sys_permisos', $permisos);
+
+
+
+
+$nav = '';
+
+foreach (Obj()->Session->get('sys_menu') as $menu1){
+    foreach (Obj()->Session->get('sys_menu') as $menuv){
+        /*se debe mostrar menu en primer nivel*/
+        if($menu1['idopciones'] == $menuv['parent'] && $menu1['nivel'] == 1 && ($menu1['asi2'] > 0 || $menu1['asi3'] > 0 || $menu1['asi4'] > 0 || $menu1['asi5'] > 0 || $menu1['asi6'] > 0 || $menu1['asi7'] > 0)){
+            $nav .= '<li>
+                        <a href="javascript:;" class="cortar"><i class="'.$menu1['icono'].'"></i> <span class="menu-item-parent">'.$menu1['opcion'].'</span></a>
+                        <ul>';
+            foreach (Obj()->Session->get('sys_menu') as $menu2){
+                #nivel dos
+                if($menu2['parent'] == $menu1['idopciones'] && $menu2['nivel'] == 2 && ($menu2['asi2'] > 0 || $menu2['asi3'] > 0 || $menu2['asi4'] > 0 || $menu2['asi5'] > 0 || $menu2['asi6'] > 0 || $menu2['asi7'] > 0)){
+                    #verificar si tiene evento
+                    if(!empty($menu2['ajax'])):
+                        /*tiene evento, no tiene subnivel*/
+                        $nav .= '
+                            <li>
+                                <a href="javascript:;" class="cortar" title="'.$menu2['titulo'].'" onclick="'.$menu2['ajax'].'">'.$menu2['opcion'].'</a>
+                            </li>';
+                    else:
+                        /*tiene subnivel*/
+                        $nav .= '
+                            <li>
+                                <a href="javascript:;" class="cortar">'.$menu2['opcion'].'</a>
+                                <ul>';
+                        foreach (Obj()->Session->get('sys_menu') as $menu3){
+                            #nivel 3
+                            if($menu3['parent'] == $menu2['idopciones'] && $menu3['nivel'] == 3 && ($menu3['asi2'] > 0 || $menu3['asi3'] > 0 || $menu3['asi4'] > 0 || $menu3['asi5'] > 0 || $menu3['asi6'] > 0 || $menu3['asi7'] > 0)){
+                                #verificar si tiene evento
+                                if(!empty($menu3['ajax'])):
+                                    /*tiene evento, no tiene subnivel*/
+                                    $nav .= '
+                                        <li>
+                                            <a href="javascript:;" class="cortar" title="'.$menu3['titulo'].'" onclick="'.$menu3['ajax'].'">'.$menu3['opcion'].'</a>
+                                        </li>';
+                                else:
+                                    /*tiene subnivel*/
+                                    $nav .= '
+                                        <li>
+                                            <a href="javascript:;" class="cortar">'.$menu3['opcion'].'</a>
+                                            <ul>';
+                                        foreach (Obj()->Session->get('sys_menu') as $menu4){
+                                            #nivel 4
+                                            if($menu4['parent'] == $menu3['idopciones'] && $menu4['nivel'] == 4 && ($menu1['asi2'] > 0 || $menu4['asi3'] > 0 || $men4['asi4'] > 0 || $menu4['asi5'] > 0 || $menu4['asi6'] > 0 || $menu4['asi7'] > 0)){
+                                                #verificar si tiene evento
+                                                if(!empty($menu4['ajax'])):
+                                                    /*tiene evento, no tiene subnivel*/
+                                                    $nav .= '
+                                                        <li>
+                                                            <a href="javascript:;" class="cortar" title="'.$menu4['titulo'].'" onclick="'.$menu4['ajax'].'">'.$menu4['opcion'].'</a>
+                                                        </li>';
+                                                else:
+                                                    /*tiene subnivel*/
+                                                    $nav .= '
+                                                        <li>
+                                                            <a href="javascript:;" class="cortar">'.$menu4['opcion'].'</a>
+                                                            <ul>';
+                                                    foreach (Obj()->Session->get('sys_menu') as $menu5){
+                                                        #nivel 5
+                                                        if($menu5['parent'] == $menu4['idopciones'] && $menu5['nivel'] == 5 && ($menu5['asi2'] > 0 || $menu5['asi3'] > 0 || $menu5['asi4'] > 0 || $menu5['asi5'] > 0 || $menu5['asi6'] > 0 || $menu5['asi7'] > 0)){
+                                                            #verificar si tiene evento
+                                                            if(!empty($menu5['ajax'])):
+                                                                /*tiene evento, no tiene subnivel*/
+                                                                $nav .= '
+                                                                    <li>
+                                                                        <a href="javascript:;" class="cortar" title="'.$menu5['titulo'].'" onclick="'.$menu5['ajax'].'">'.$menu5['opcion'].'</a>
+                                                                    </li>';
+                                                            else:
+                                                                /*tiene subnivel*/
+                                                                $nav .= '
+                                                                    <li>
+                                                                        <a href="javascript:;" class="cortar">'.$menu5['opcion'].'</a>
+                                                                        <ul>';
+                                                                foreach (Obj()->Session->get('sys_menu') as $menu6){
+                                                                    #nivel 6
+                                                                    if($menu6['parent'] == $menu5['idopciones'] && $menu6['nivel'] == 6 && ($menu6['asi2'] > 0 || $menu6['asi3'] > 0 || $menu6['asi4'] > 0 || $menu6['asi5'] > 0 || $menu6['asi6'] > 0 || $menu6['asi7'] > 0)){
+                                                                        #verificar si tiene evento
+                                                                        if(!empty($menu6['ajax'])):
+                                                                            /*tiene evento, no tiene subnivel*/
+                                                                            $nav .= '
+                                                                                <li>
+                                                                                    <a href="javascript:;" class="cortar" title="'.$menu6['titulo'].'" onclick="'.$menu6['ajax'].'">'.$menu6['opcion'].'</a>
+                                                                                </li>';
+                                                                        else:
+                                                                            /*SI ES NECESARIO, CONTINUAR CON SUBNIVELES*/
+                                                                        endif;
+                                                                    }
+                                                                }
+                                                                $nav .= '
+                                                                        </ul>
+                                                                    </li>';
+                                                            endif;
+                                                        }
+                                                    }
+                                                    $nav .= '
+                                                            </ul>
+                                                        </li>';
+                                                endif;
+                                            }
+                                        }
+                                    $nav .= '
+                                            </ul>
+                                        </li>';
+                                endif;
+                            }
+                        }        
+                        $nav .= '
+                                </ul>
+                            </li>';
+                    endif;
+                }
+            }
+            $nav .= ' 
+                        </ul>
+                    </li>';
+            break;
+        }
+    }
+}
+
+echo $nav;
+?>
+                    
+<script>
+    setTimeout(function(){
+        Tools.removeAttr.click({
+            container: '#nav_modulos',
+            typeElement: 'a'
+        });
+    },9000);
+var sys_permisos = <?php echo json_encode(Obj()->Session->get('sys_permisos')) ?>
+</script>

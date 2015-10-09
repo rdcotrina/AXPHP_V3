@@ -1,0 +1,14 @@
+<?php
+    $nuevo = Obj()->Session->getPermiso('MNUNEW');
+?>
+<p>
+<?php if ($nuevo['permiso']): ?>
+    <button id="<?php echo MENU?>btnNew" class="<?php echo $nuevo['theme']; ?>" onclick="Exe.MenuView.formNewMenu(this,1)"><i class="<?php echo $nuevo['icono']; ?>"></i> <?php echo $nuevo['accion']; ?></button>
+<?php endif; ?>
+</p>
+
+<div class="cont-listadominios tree smart-form" style="width:80%;margin:auto"></div>
+
+<script>
+    Exe.MenuView.listaMenu();
+</script>
