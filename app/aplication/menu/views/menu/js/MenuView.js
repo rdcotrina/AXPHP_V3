@@ -11,6 +11,8 @@ var MenuView_ = Ajax.extend(function(){
     
     _private.parent = '';
     
+    _private.idMenu = 0;
+    
     var _public = {};
 
     _public.init = function () {
@@ -46,6 +48,7 @@ var MenuView_ = Ajax.extend(function(){
         
         _public.parent.send({
             element: btn,
+            gifProcess: true,
             dataType: 'html',
             root: _private.config.controller + _public.parent.__method__(this,4),
             fnCallback: function(data) {
@@ -55,11 +58,28 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
+    _public.formEditMenu = function(id,nivel){
+        _private.idMenu = id;
+        _private.nivel = nivel;
+        _public.parent.send({
+            gifProcess: true,
+            dataType: 'html',
+            root: _private.config.controller + _public.parent.__method__(this,5),
+            fnServerParams: function(sData) {
+                sData.push({name: '_idMenu', value: _private.idMenu});
+            },
+            fnCallback: function(data) {
+                $('#cont-modal').append(data);  /*los formularios con append*/
+                $('#' + tabs.MENU + 'formEditMenu').modal('show');
+            }
+        });
+    };
+    
     _public.postNewMenu = function(){
         _public.parent.send({
             flag: 1,
             element: '#'+tabs.MENU+'btnGrabaMnu',
-            root: _private.config.controller + _public.parent.__method__(this,5),
+            root: _private.config.controller + _public.parent.__method__(this,6),
             form: '#'+tabs.MENU+'formNewMenu',
             fnServerParams: function(sData) {
                 sData.push({name: '_nivel', value: _private.nivel});
@@ -84,11 +104,68 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
+    _public.postEditMenu = function(){
+        _public.parent.send({
+            flag: 2,
+            element: '#'+tabs.MENU+'btnEdMnu',
+            root: _private.config.controller + _public.parent.__method__(this,7),
+            form: '#'+tabs.MENU+'formEditMenu',
+            fnServerParams: function(sData) {
+                sData.push({name: '_idMenu', value: _private.idMenu});
+                sData.push({name: '_nivel', value: _private.nivel});
+            },
+            fnCallback: function(data) {
+                if (parseInt(data.result) === 1) {
+                    Tools.notify.ok({
+                        content: lang.mensajes.MSG_10,
+                        callback: function() {
+                            _public.listaMenu();
+                            _private.idMenu = 0;
+                            _private.nivel = 0;
+                            Tools.closeModal('#' + tabs.MENU + 'formEditMenu');
+                        }
+                    });
+                }else if (parseInt(data.result) === 2) {//ya existe
+                    Tools.notify.error({
+                        content: lang.mensajes.MSG_4
+                    });
+                }
+            }
+        });
+    };
+    
+    _public.postDeleteMenu = function(id){
+        var $this = this;
+        Tools.notify.confirm({
+            content: lang.mensajes.MSG_11,
+            callbackSI: function() {
+                _public.parent.send({
+                    flag: 3,
+                    gifProcess: true,
+                    root: _private.config.controller + _public.parent.__method__($this,8),
+                    fnServerParams: function(sData) {
+                        sData.push({name: '_idMenu', value: id});
+                    },
+                    fnCallback: function(data) {
+                        if (!isNaN(data.result) && parseInt(data.result) === 1) {
+                            Tools.notify.ok({
+                                content: lang.mensajes.MSG_6,
+                                callback: function() {
+                                    _public.listaMenu();
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    };
+    
     _public.listaMenu = function(){
         _public.parent.send({
             dataType: 'html',
             gifProcess: true,
-            root: _private.config.controller + _public.parent.__method__(this,6),
+            root: _private.config.controller + _public.parent.__method__(this,9),
             fnCallback: function(data) {
                 $('.cont-listadominios').html(data);
             }

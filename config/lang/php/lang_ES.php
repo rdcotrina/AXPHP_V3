@@ -13,7 +13,7 @@ define('LBL_LOCK','Se bloquedo el sistema');
 
 /*===========================FORMULARIO LOGIN==================================*/
 define('LBL_TITLE','Ingresar');
-define('LBL_EMAIL','E-mail o usuario');
+define('LBL_EMAIL','Usuario');
 define('LBL_PASS','Contraseña');
 define('LBL_OLVIDE','¿Olvide mi contraseña?');
 define('LBL_ENTRAR','Entrar');
@@ -32,6 +32,7 @@ define('MENU_8','Ingrese el título');
 define('MENU_9','Ingrese el css para el icono dem menú');
 define('MENU_10','Ingrese el alias de la opción');
 define('MENU_11','Ingrese el evento para el ajax. Ejm: Exe.run(&#039;aplication::MenuView&#039;,this);');
+define('MENU_12','Editar Menú');
 
 /*===========================ACCIONES==================================*/
 define('AXI_1','Acciones');

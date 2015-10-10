@@ -66,22 +66,22 @@ var MenuScript_ = MenuView_.extend(function(){
                
                 switch(nivel.toString()){
                     /*DOMINIOS*/
-                    case 'DO':
+                    case 'N1':
                         switch (action) {
                             case 'NEW':
+                                                        /*--,nivel,parent*/
                                 Exe.MenuView.formNewMenu(null,2,id);
-//                                Menu.getFormNewModulo(id);
                                 break;
                             case 'EDIT':
-//                                Menu.getFormEditDominio(id);
+                                Exe.MenuView.formEditMenu(id,1);
                                 break;
                             case 'DELETE':
-//                                Menu.postDeleteDominio(id);
+                                Exe.MenuView.postDeleteMenu(id);
                                 break;
                         }
                         break;
                     /*MODULOS*/
-                    case 'MO':
+                    case 'N2':
                         var idDominio = $('#'+idTarget).attr('data-dominio');
                         switch (action) {
                             case 'NEW':
@@ -96,7 +96,7 @@ var MenuScript_ = MenuView_.extend(function(){
                         }
                         break;
                     /*MENUS*/
-                    case 'MNU':
+                    case 'N3':
                         var idModulo = $('#'+idTarget).attr('data-modulo');
                         switch (action) {
                             case 'NEW':
@@ -111,7 +111,7 @@ var MenuScript_ = MenuView_.extend(function(){
                         }
                         break;
                     /*OPCION*/
-                    case 'OPC':
+                    case 'N4':
                         var idMenu = $('#'+idTarget).attr('data-menu');
                         /*desabilitar opcion Nuevo en menu derecho|*/
                         switch (action) {

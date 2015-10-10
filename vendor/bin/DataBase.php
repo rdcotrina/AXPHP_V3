@@ -18,20 +18,20 @@ class DataBase extends \Vendor\DataBaseProvider{
         $this->_db = parent::__construct();
         
         /*obtener la clase que hereda a Database;es para registrar el Model*/
-//        $e = new Exception();
-//        $trace = $e->getTrace();
-//        $last_call = $trace[1]; 
-//        
-//        $clase = explode('\\',$last_call['class']);
-//        
-//        $module     = array_shift($clase);
-//        $opcion     = array_shift($clase);
-//        $controller = array_shift($clase);
-//        $controller = array_shift($clase);
-//        
-//        $model = substr($controller, 0, -5).'Model';
-//        
-//        \Vendor\Registry::addClass($model.'Model','\\'.$module.'\\'.$opcion.'\\Models\\'.$model);  /*se registra modelo donde se extiende Database*/ 
+        $e = new Exception();
+        $trace = $e->getTrace();
+        $last_call = $trace[1]; 
+        
+        $clase = explode('\\',$last_call['class']);
+        
+        $module     = array_shift($clase);
+        $opcion     = array_shift($clase);
+        $controller = array_shift($clase);
+        $controller = array_shift($clase);
+        
+        $model = substr($controller, 0, -5).'Model';
+        
+        \Vendor\Registry::singleton($model);  /*se registra modelo donde se extiende Database, para proteger el MODELO*/ 
     }
     
     final protected function execute($query,$arrayValues){

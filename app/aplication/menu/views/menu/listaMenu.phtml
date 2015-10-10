@@ -17,7 +17,7 @@ $dataMenu = Obj()->MenuController->getMenuN(1);
             $label = 'label label-danger';
         }
         ?>
-    <li id="<?php echo $keyDo?>" data-id="<?php echo Obj()->AesCtr->en($do['idopciones']) ?>" data-nivel="DO" data-doorden="<?php echo $do['idopciones'] ?>" class="menuRight" style="float: left;display: inline;margin-left: 10px">
+    <li id="<?php echo $keyDo?>" data-id="<?php echo Obj()->AesCtr->en($do['idopciones']) ?>" data-nivel="N1" data-doorden="<?php echo $do['idopciones'] ?>" class="menuRight" style="float: left;display: inline;margin-left: 10px">
         <span class="clickColapse <?php echo $label ?> txt-color-white" style="width: 100%">
             <div class="cortar" style="width: 200px;<?php echo $txt ?>">
                 <i class="fa fa-lg fa-folder-open"></i> <?php echo $do['menu'] ?>
@@ -38,7 +38,7 @@ $dataMenu = Obj()->MenuController->getMenuN(1);
                         $labelD = 'label label-danger';
                     }
             ?>
-            <li id="<?php echo $keyDo.$keyMO?>" data-id="<?php echo Obj()->AesCtr->en($mod['idopciones']) ?>" data-moorden="<?php echo $mod['idopciones'] ?>" data-dominio="<?php echo Obj()->AesCtr->en($do['idopciones']) ?>" data-nivel="MO" class="menuRight">
+            <li id="<?php echo $keyDo.$keyMO?>" data-id="<?php echo Obj()->AesCtr->en($mod['idopciones']) ?>" data-moorden="<?php echo $mod['idopciones'] ?>" data-dominio="<?php echo Obj()->AesCtr->en($do['idopciones']) ?>" data-nivel="N2" class="menuRight">
                 <span class="clickColapse <?php echo $labelD ?> txt-color-white">
                     <div class="cortar" style="width: 200px;<?php echo $txtD?>">
                         <i class="fa fa-lg fa-plus-circle"></i> <?php echo $mod['menu'] ?>
@@ -59,7 +59,7 @@ $dataMenu = Obj()->MenuController->getMenuN(1);
                             $labelM = 'label label-danger';
                         }
                         ?>
-                    <li id="<?php echo $keyDo.$keyMO.$keyMNU?>" data-id="<?php echo Obj()->AesCtr->en($men['idopciones']) ?>" data-meorden="<?php echo $men['idopciones'] ?>" data-modulo="<?php echo Obj()->AesCtr->en($mod['idopciones']) ?>" data-nivel="MNU">
+                    <li id="<?php echo $keyDo.$keyMO.$keyMNU?>" data-id="<?php echo Obj()->AesCtr->en($men['idopciones']) ?>" data-meorden="<?php echo $men['idopciones'] ?>" data-modulo="<?php echo Obj()->AesCtr->en($mod['idopciones']) ?>" data-nivel="N3">
                         <span class="clickColapse <?php echo $labelM ?> txt-color-white">
                             <div class="cortar" style="width: 180px;<?php echo $txtM ?>">
                                 <i class="fa fa-lg fa-plus-circle"></i> <?php echo $men['menu'] ?>
@@ -79,7 +79,7 @@ $dataMenu = Obj()->MenuController->getMenuN(1);
                                     $labelO = 'label label-danger';
                                 }
                                 ?>
-                            <li id="<?php echo $keyDo.$keyMO.$keyMNU.$keyOPC?>" data-id="<?php echo Obj()->AesCtr->en($opc['idopciones']) ?>" data-opcorden="<?php echo $opc['idopciones'] ?>" data-menu="<?php echo Obj()->AesCtr->en($men['idopciones']) ?>" data-nivel="OPC">
+                            <li id="<?php echo $keyDo.$keyMO.$keyMNU.$keyOPC?>" data-id="<?php echo Obj()->AesCtr->en($opc['idopciones']) ?>" data-opcorden="<?php echo $opc['idopciones'] ?>" data-menu="<?php echo Obj()->AesCtr->en($men['idopciones']) ?>" data-nivel="N4">
                                 <span class="clickColapse <?php echo $labelO ?> txt-color-white">
                                     <div class="cortar" style="width: 120px;<?php echo $txtO ?>">
                                         <i class="fa fa-lg fa-plus-circle"></i> <?php echo $opc['menu'] ?>
@@ -100,7 +100,7 @@ $dataMenu = Obj()->MenuController->getMenuN(1);
                                             $labelO5 = 'label label-danger';
                                         }
                                         ?>
-                                    <li id="<?php echo $keyDo.$keyMO.$keyMNU.$keyOPC.$keyOPC5?>" data-id="<?php echo Obj()->AesCtr->en($opc5['idopciones']) ?>" data-opc5orden="<?php echo $opc5['idopciones'] ?>" data-menu="<?php echo Obj()->AesCtr->en($opc['idopciones']) ?>" data-nivel="OPC5" ><!-- data-disabled="new" -->
+                                    <li id="<?php echo $keyDo.$keyMO.$keyMNU.$keyOPC.$keyOPC5?>" data-id="<?php echo Obj()->AesCtr->en($opc5['idopciones']) ?>" data-opc5orden="<?php echo $opc5['idopciones'] ?>" data-menu="<?php echo Obj()->AesCtr->en($opc['idopciones']) ?>" data-nivel="N5" ><!-- data-disabled="new" -->
                                         <span class="clickColapse <?php echo $labelO5 ?> txt-color-white">
                                             <div class="cortar" style="width: 120px;<?php echo $txtO5 ?>">
                                                 <i class="fa fa-lg fa-plus-circle"></i> <?php echo $opc5['menu'] ?>
@@ -120,7 +120,7 @@ $dataMenu = Obj()->MenuController->getMenuN(1);
                                                     $labelO6 = 'label label-danger';
                                                 }
                                                 ?>
-                                            <li class="opciones" id="<?php echo $keyDo.$keyMO.$keyMNU.$keyOPC.$keyOPC5.$keyOPC6?>" data-id="<?php echo Obj()->AesCtr->en($opc6['idopciones']) ?>" data-opc6orden="<?php echo $opc6['idopciones'] ?>" data-menu="<?php echo Obj()->AesCtr->en($opc5['idopciones']) ?>" data-nivel="OPC5" >
+                                            <li class="opciones" id="<?php echo $keyDo.$keyMO.$keyMNU.$keyOPC.$keyOPC5.$keyOPC6?>" data-id="<?php echo Obj()->AesCtr->en($opc6['idopciones']) ?>" data-opc6orden="<?php echo $opc6['idopciones'] ?>" data-menu="<?php echo Obj()->AesCtr->en($opc5['idopciones']) ?>" data-nivel="N6" >
                                                 <span class="clickColapse <?php echo $labelO6 ?> txt-color-white">
                                                     <div class="cortar" style="width: 120px;<?php echo $txtO6 ?>">
                                                         <i class=""></i> <?php echo $opc6['menu'] ?>

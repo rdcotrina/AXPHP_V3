@@ -1,0 +1,162 @@
+<?php
+$edit = Obj()->Session->getPermiso('MNUACT');
+
+$data = Obj()->MenuController->findMenu();
+
+$Form = Obj()->BuiltForm->init([
+                "title"=>MENU_12,
+                "alias"=>MENU,
+                "ajaxSubmit"=>"Exe.MenuView.postEditMenu();",
+                "attr"=>[
+                    "id"=>"formEditMenu",
+                    "name"=>"formEditMenu",
+                    "class"=>"modal fade"
+                ],
+                "noSubmit"=>$edit['permiso'] //cuando no tiene permiso de grabar, el enter en elementos no funciona
+            ]);
+
+$Form->addField([
+    "label"=>[
+        "label"=>MENU_2,
+        "attr"=>["class"=>"label col col-2"]
+    ],
+    "field"=>[
+        "attr"=>[
+            "type"=>"text",
+            "id"=>"txt_menu",
+            "name"=>"txt_menu",
+            "value"=>$data['descripcion']
+        ],
+        "help"=>MENU_7,
+        "iconrequired"=>true,
+        "validate"=>["required:true","minlength:3"]
+    ]
+]);
+
+$Form->addField([
+    "label"=>[
+        "label"=>MENU_3,
+        "attr"=>["class"=>"label col col-2"]
+    ],
+    "field"=>[
+        "csswidth"=>"col col-8",
+        "attr"=>[
+            "type"=>"text",
+            "id"=>"txt_titulo",
+            "name"=>"txt_titulo",
+            "value"=>$data['titulo']
+        ],
+        "help"=>MENU_8
+    ]
+]);
+
+$Form->addField([
+    "label"=>[
+        "label"=>MENU_4,
+        "attr"=>["class"=>"label col col-2"]
+    ],
+    "field"=>[
+        "csswidth"=>"col col-6",
+        "attr"=>[
+            "type"=>"text",
+            "id"=>"txt_icono",
+            "name"=>"txt_icono",
+            "value"=>$data['icono']
+        ],
+        "help"=>MENU_9
+    ]
+]);
+
+$Form->addField([
+    "label"=>[
+        "label"=>MENU_5,
+        "attr"=>["class"=>"label col col-2"]
+    ],
+    "field"=>[
+        "csswidth"=>"col col-6",
+        "attr"=>[
+            "type"=>"text",
+            "id"=>"txt_alias",
+            "name"=>"txt_alias",
+            "value"=>$data['alias']
+        ],
+        "help"=>MENU_10
+    ]
+]);
+
+$Form->addField([
+    "label"=>[
+        "label"=>MENU_6,
+        "attr"=>["class"=>"label col col-2"]
+    ],
+    "field"=>[
+        "csswidth"=>"col col-8",
+        "attr"=>[
+            "type"=>"text",
+            "id"=>"txt_ajax",
+            "name"=>"txt_ajax",
+            "value"=>$data['ajax']
+        ],
+        "help"=>MENU_11
+    ]
+]);
+
+
+
+//$Form->addField([
+//    "label"=>[
+//        "label"=>MENU_6,
+//        "attr"=>["class"=>"label col col-2"]
+//    ],
+//    "field"=>[
+//        "csswidth"=>"col col-8",
+//        "attr"=>[
+//            "type"=>"textarea",
+//            "id"=>"txt_ajax",
+//            "name"=>"txt_ajax",
+//            "class"=>"form-control"
+//        ],
+//        "help"=>MENU_11
+//    ]
+//]);
+
+
+$Form->addField([
+    "label"=>[
+        "label"=>LBL_ACTIVO,
+        "attr"=>["class"=>"label col col-2"]
+    ],
+    "field"=>[
+        "csswidth"=>"col col-3",
+        "attr"=>[
+            "type"=>"checkbox",
+            "id"=>"chk_activo",
+            "name"=>"chk_activo",
+            "value"=>"1",
+            "checked"=>($data['estado']=='1')?true:false
+        ]
+    ]
+]);
+
+if($edit['permiso']){
+    $Form->addButton([
+        "label"=>$edit['accion'],
+        "icon"=>$edit['icono'],
+        "attr"=>[
+            "id"=>"btnEdMnu",
+            "type"=>"submit",
+            "class"=>$edit['theme']
+        ]
+    ]);
+}
+
+$Form->addButton([
+    "label"=>LBL_CLOSE,
+    "icon"=>ICON_CLOSE,
+    "attr"=>[
+        "type"=>"button",
+        "class"=>THEME_CLOSE
+    ]
+]);
+
+$Form->view(); 

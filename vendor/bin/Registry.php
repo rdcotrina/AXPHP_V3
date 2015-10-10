@@ -12,6 +12,8 @@ final class Registry {
     
     public static $get;
     
+    private static $_instancias = array();
+    
     /** 
      * Registra variables y objetos         
      */ 
@@ -42,6 +44,16 @@ final class Registry {
         }else {  
             throw new Exception('Error: Clase <b>'.$class.'</b> ya se registro. Acceda con <b>Obj::run()->NAMECLASS</b>');
         }  
+    }
+    
+    public static function singleton($class=''){
+        if(!empty($class)){
+            if(in_array($class, self::$_instancias)){
+                 throw new Exception('Error: objeto <b>'.$class.'</b> ya se instancio, para acceder hacerlo es a travez de su Controlador.');
+            }else{
+                self::$_instancias[$class] = $class;
+            }
+        }
     }
     
     /** 

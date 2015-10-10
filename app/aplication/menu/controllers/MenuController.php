@@ -22,6 +22,10 @@ class MenuController extends \Vendor\Controller{
         Obj()->View->render();
     }
     
+    public function formEditMenu() {
+        Obj()->View->render();
+    }
+    
     public function listaMenu() {
         Obj()->View->render();
     }
@@ -30,8 +34,20 @@ class MenuController extends \Vendor\Controller{
         echo json_encode(self::$menuModel->mantenimientoMenu());
     }
     
+    public function postEditMenu() {
+        echo json_encode(self::$menuModel->mantenimientoMenu());
+    }
+    
+    public function postDeleteMenu() {
+        echo json_encode(self::$menuModel->mantenimientoMenu());
+    }
+    
     public function getMenuN($flag,$criterio='',$criterio2='') {
         return self::$menuModel->consultasMenu($flag,$criterio,$criterio2);
+    }
+    
+    public function findMenu() {
+        return self::$menuModel->consultasMenu(3,self::$menuModel->idMenu)[0];
     }
     
 }
