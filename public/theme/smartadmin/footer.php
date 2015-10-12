@@ -146,14 +146,14 @@
     };
     
     /*activando menu top*/
-    localStorage.setItem("sm-setmenu", "top");
-    $('input[type="checkbox"]#smart-fixed-header').prop("checked", !0);
-    $('input[type="checkbox"]#smart-fixed-navigation').prop("checked", !0);
-    $('input[type="checkbox"]#smart-fixed-ribbon').prop("checked", !0);
-    $.root_.addClass("fixed-header");
-    $.root_.addClass("fixed-navigation");
-   // $.root_.addClass("fixed-ribbon");
-    $('input[type="checkbox"]#smart-fixed-container').prop("checked", !1);
-    $.root_.removeClass("container");
+//    localStorage.setItem("sm-setmenu", "top");
+//    $('input[type="checkbox"]#smart-fixed-header').prop("checked", !0);
+//    $('input[type="checkbox"]#smart-fixed-navigation').prop("checked", !0);
+//    $('input[type="checkbox"]#smart-fixed-ribbon').prop("checked", !0);
+//    $.root_.addClass("fixed-header");
+//    $.root_.addClass("fixed-navigation");
+//   // $.root_.addClass("fixed-ribbon");
+//    $('input[type="checkbox"]#smart-fixed-container').prop("checked", !1);
+//    $.root_.removeClass("container");
 </script>
 <?php endif; ?>

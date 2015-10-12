@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/AXPHP_V3/');            #raiz del proyecto
+define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/PROYECTOERP/');            #raiz del proyecto
 define('DEFAULT_APP_FOLDER', 'app');                                         #carpeta de la aplicacion
 define('DEFAULT_MODULE', 'aplication');                                      #modulo por defecto, actua como NAMESPACE
 define('DEFAULT_OPCION', 'index');                                           #opcion por defecto, esta dentro de un NAMESPACE (modulo)
@@ -17,6 +17,8 @@ define('APP_LANG', 'ES');                                                    #id
 
 define('DB_ENTORNO', 'D');                                                   #D=DESARROLLO, P=PRODUCCION
 define('DB_MOTOR', 'sql');
+//define('DB_HOST', 'erpsolution.mine.nu');
+//define('DB_PASS', 'Pr0y3ct0');
 define('DB_HOST', 'WIN-UUF8TPB3RS5');
 define('DB_USER', 'sa');
 define('DB_PASS', '123');
@@ -29,6 +31,7 @@ define('DB_COLLATION', 'utf8_unicode_ci');
 
 require_once ROOT . 'config' . DS . 'AutoloadVendor.php';
 require_once ROOT . 'config' . DS . 'AutoloadLibraries.php';
+require_once ROOT . 'config' . DS . 'AutoloadTraits.php';
 require_once ROOT . 'config' . DS . 'lang' . DS . 'php' . DS . 'lang_' . APP_LANG . '.php';
 require_once ROOT . 'config' . DS . 'prefix' . DS . 'PrefixPHP.php';
 

@@ -6,11 +6,18 @@
  */
 namespace Aplication\Accion\Controllers;
 
+use Aplication\Accion\Filters\AccionFilter;
+
 class AccionController extends \Vendor\Controller{
     
+    use AccionFilter{
+            AccionFilter::__construct as private __afConstruct;
+        }
+        
     private static $accionModel;
 
     public function __construct() {
+        $this->__afConstruct();
         self::$accionModel = Obj()->Model->loadModel();
     }
     
@@ -47,12 +54,14 @@ class AccionController extends \Vendor\Controller{
     }
     
     public function postMantenimientoAccion() {
-        echo json_encode(self::$accionModel->mantenimientoAccion());
+        if($this->isValidate()){
+            $data = self::$accionModel->mantenimientoAccion();
+        }else{
+            $data = $this->valida()->messages();
+        }
+            
+        echo json_encode($data);
     }
-    
-//    public function postEditAccion() {
-//        echo json_encode(self::$accionModel->mantenimientoAccion());
-//    }
     
     public function findAccion() {
         return self::$accionModel->findAccion();

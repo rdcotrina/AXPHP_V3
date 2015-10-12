@@ -51,3 +51,6 @@ define('AXI_13','Css para el diseño del botón');
 define('AXI_14','Grabar nueva acción');
 define('AXI_15','Actualizar acción');
 define('AXI_16','Eliminar acción');
+
+/*===========================Fases==================================*/
+define("FASE_1","Fases");

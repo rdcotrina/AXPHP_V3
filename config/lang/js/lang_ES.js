@@ -17,7 +17,9 @@ lang.mensajes = {
 lang.generic = {};
 lang.generic.AX = 'Acciones';
 lang.generic.ACT = 'Actualizar';
+lang.generic.DESC = 'Descripción';
 lang.generic.EST = 'Estado';
+lang.generic.EXIST = 'Registro ya existe';
 
 /*-----------------------ACCIONES-------------------------*/
 lang.Acciones = {};
@@ -27,3 +29,6 @@ lang.Acciones.ALIAS = 'Alias';
 lang.Acciones.EXISTAXION = 'Acción ya existe';
 lang.Acciones.EXISTALAIS = 'Alias ya existe';
 lang.Acciones.TITLEEXPORT = 'RELACIÓN DE ACCIONES';
+
+/*-----------------------FASES-------------------------*/
+lang.Fases = {};
