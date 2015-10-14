@@ -10,6 +10,7 @@ class MenuModel extends \Vendor\DataBase{
     
     private $_flag;
     public  $idMenu;
+    private $_idSort;
     private $_menu;
     private $_titulo;
     private $_icono;
@@ -35,6 +36,7 @@ class MenuModel extends \Vendor\DataBase{
         $this->_ajax     = Obj()->Get->getPost(MENU.'txt_ajax');
         $this->_estado   = Obj()->Get->getPost(MENU.'chk_activo');
         $this->_parent   = Obj()->Aes->de(Obj()->Get->getPost('_parent'));
+        $this->_idSort   = Obj()->Get->getPost('_ids');
         $this->_nivel    = Obj()->Get->getPost('_nivel');
         $this->_usuario  = Obj()->Session->get('sys_persona');
     }
@@ -65,6 +67,17 @@ class MenuModel extends \Vendor\DataBase{
             ':criterio2' => $criterio2
         );
         return $this->queryAll($query,$parms);
+    }
+    
+    public function ordenar(){
+        $query = "EXEC sp_maeMenuOrdenar :flag,:ids,:nivel,:usuario;";
+        $parms = array(
+            ':flag' => $this->_flag,
+            ':ids' => $this->_idSort,
+            ':nivel' => $this->_nivel,
+            ':usuario' => $this->_usuario
+        );
+        return $this->queryOne($query,$parms);
     }
     
 }

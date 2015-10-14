@@ -1,4 +1,4 @@
-Exe.require({aplication: 'index::LoginScript'});
+//Exe.require({aplication: 'index::LoginScript'});
 var LoginView_ = Ajax.extend(function(){
     
     var _private = {};
@@ -16,22 +16,22 @@ var LoginView_ = Ajax.extend(function(){
         _private.pass    = $('#txtClave').val();
     };
     
-    var _public = {};
+    var public = {};
 
-    _public.init = function () {
-        _public.parent = this; // el padre == Ajax
+    public.init = function () {
+        public.parent = this; // el padre == Ajax
         _private.setAttributes();
     };
     
-    _public.postLogin = function() {
+    public.postLogin = function() {
         _private.setAttributes();
-        _public.parent.send({
+        public.parent.send({
             flag: 1,
             element: '#btnEntrar',
-            root: _private.config.controller + _public.parent.__method__(this,2),
+            root: _private.config.controller + public.parent.__method__(this,2),
             fnServerParams: function(sData) {
-                sData.push({name: '_user', value: _public.parent.stringPost(_private.usuario)});
-                sData.push({name: '_clave', value: _public.parent.stringPost(_private.pass)});
+                sData.push({name: '_user', value: public.parent.stringPost(_private.usuario)});
+                sData.push({name: '_clave', value: public.parent.stringPost(_private.pass)});
             },
             fnCallback: function(data) {
                 if (data.idusuario > 0 && localStorage.getItem('mainBodyHtml') === 'null') {
@@ -56,9 +56,9 @@ var LoginView_ = Ajax.extend(function(){
         });
     };
     
-    _public.postLogout = function() {
-        _public.parent.send({
-            root: _private.config.controller + _public.parent.__method__(this,3),
+    public.postLogout = function() {
+        public.parent.send({
+            root: _private.config.controller + public.parent.__method__(this,3),
             fnCallback: function(data) {
                 if (parseInt(data.result) === 1) {
                     Tools.notify.ok({
@@ -70,7 +70,7 @@ var LoginView_ = Ajax.extend(function(){
         });
     };
     
-    _public.main = function(){};
+    public.main = function(){};
 
-    return _public;
+    return public;
 }());

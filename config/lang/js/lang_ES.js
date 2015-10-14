@@ -10,7 +10,8 @@ lang.mensajes = {
     MSG_8: 'Registros se eliminaron correctamente.',
     MSG_9: 'Seleccione al menos un registro.',
     MSG_10: 'Datos se actualizaron correctamente.',
-    MSG_11: 'Se eliminaran todos los datos relacionados. ¿Está seguro de eliminar registro?'
+    MSG_11: 'Se eliminaran todos los datos relacionados. ¿Está seguro de eliminar registro?',
+    MSG_12: 'Operación se realizó correctamente'
 };
 
 /*--------------------------GENERICOS---------------------------*/
@@ -20,6 +21,11 @@ lang.generic.ACT = 'Actualizar';
 lang.generic.DESC = 'Descripción';
 lang.generic.EST = 'Estado';
 lang.generic.EXIST = 'Registro ya existe';
+
+/*--------------------------GENERICOS---------------------------*/
+lang.Menu = {};
+lang.Menu.AJAXEXIST = 'Ajax ya existe';
+lang.Menu.ALIASEXIST = 'Alias ya existe';
 
 /*-----------------------ACCIONES-------------------------*/
 lang.Acciones = {};
@@ -31,4 +37,5 @@ lang.Acciones.EXISTALAIS = 'Alias ya existe';
 lang.Acciones.TITLEEXPORT = 'RELACIÓN DE ACCIONES';
 
 /*-----------------------FASES-------------------------*/
-lang.Fases = {};
+lang.Rol = {};
+lang.Rol.ROL = 'Rol' ;

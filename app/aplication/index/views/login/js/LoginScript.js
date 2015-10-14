@@ -2,13 +2,13 @@ var LoginScript_ = LoginView_.extend(function(){
     
     var _private = {};
 
-    var _public = {};
+    var public = {};
     
-    _public.init = function () {
-        _public.parent = this; // el padre == LoginView
+    public.init = function () {
+        public.parent = this; // el padre == LoginView
     };
     
-    return _public;
+    return public;
     
 }());
 

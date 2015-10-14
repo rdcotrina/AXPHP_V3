@@ -63,6 +63,10 @@ class AccionController extends \Vendor\Controller{
         echo json_encode($data);
     }
     
+    public function postDeleteAccion() {
+        echo json_encode(self::$accionModel->mantenimientoAccion());
+    }
+    
     public function findAccion() {
         return self::$accionModel->findAccion();
     }

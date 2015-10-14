@@ -8,37 +8,37 @@ var AccionView_ = Ajax.extend(function(){
     
     _private.idAccion = 0;
     
-    var _public = {};
+    var public = {};
 
-    _public.init = function () {
-        _public.parent = this; // el padre == Ajax
+    public.init = function () {
+        public.parent = this; // el padre == Ajax
     };
     
-    _public.main = function(){
+    public.main = function(){
         Tools.addTab({
             id: tabs.AXI,
             label: Exe.getTitle(),
             fnCallback: function() {
-                _public.index(Exe.getTitle());
+                public.index(Exe.getTitle());
             }
         });
     };
     
-    _public.index = function(title){
-        _public.parent.send({
+    public.index = function(title){
+        public.parent.send({
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,3),
+            root: _private.config.controller + public.parent.__method__(this,3),
             fnServerParams: function(sData) {
                 sData.push({name: '_rootTitle', value: title});
             },
             fnCallback: function(data) {
                 $('#' + tabs.AXI + '_CONTAINER').html(data);
-                _public.getGridAcciones();
+                public.getGridAcciones();
             }
         });
     };
     
-    _public.getGridAcciones = function (){
+    public.getGridAcciones = function (){
         var pNew    = Tools.getPermiso("AXINEW");
         var pEdit   = Tools.getPermiso("AXIED");
         var pDelete = Tools.getPermiso("AXIDE");
@@ -49,7 +49,7 @@ var AccionView_ = Ajax.extend(function(){
             tShowHideColumn: true,
             pOrderField: 'descripcion asc',
             tColumns: [
-                {title: lang.Acciones.AXION,field: "descripcion",width: "300",sortable: true,filter: {type: 'text'}},
+                {title: lang.Acciones.AXION,field: "descripcion",width: "200",sortable: true,filter: {type: 'text'}},
                 {
                     title: lang.Acciones.DISEN, 
                     width: "220", 
@@ -62,7 +62,7 @@ var AccionView_ = Ajax.extend(function(){
                 {
                     title: lang.Acciones.ALIAS, 
                     field: "alias", 
-                    width: "220", 
+                    width: "150", 
                     sortable: true,
                     filter:{
                         type:"select",
@@ -130,18 +130,18 @@ var AccionView_ = Ajax.extend(function(){
                 cRowsInVerticalScroll: 10 /*activa el scrool, se visualizara de 10 en 10*/
 //                cColsInHorizontalScroll: 2
             },
-            ajaxSource: _private.config.controller+_public.parent.__method__(this,4),
+            ajaxSource: _private.config.controller+public.parent.__method__(this,4),
             fnCallback: function(oSettings) {
                 _private.idGrid = oSettings.tObjectTable;
             }
         });
     };
     
-    _public.formNewAccion = function(btn){
-        _public.parent.send({
+    public.formNewAccion = function(btn){
+        public.parent.send({
             element: btn,
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,5),
+            root: _private.config.controller + public.parent.__method__(this,5),
             fnCallback: function(data) {
                 $('#cont-modal').append(data);  /*los formularios con append*/
                 $('#' + tabs.AXI + 'formNewAccion').modal('show');
@@ -149,12 +149,12 @@ var AccionView_ = Ajax.extend(function(){
         });
     };
     
-    _public.formEditAccion = function(btn,id){
+    public.formEditAccion = function(btn,id){
         _private.idAccion = id;
-        _public.parent.send({
+        public.parent.send({
             element: btn,
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,6),
+            root: _private.config.controller + public.parent.__method__(this,6),
             fnServerParams: function(sData) {
                 sData.push({name: '_idAccion', value: _private.idAccion});
             },
@@ -165,8 +165,8 @@ var AccionView_ = Ajax.extend(function(){
         });
     };
     
-    _public.postNewAccion = function(){
-        _public.parent.send({
+    public.postNewAccion = function(){
+        public.parent.send({
             flag: 1,
             element: '#'+tabs.AXI+'btnGrabaAccion',
             root: _private.config.controller + 'postMantenimientoAccion',
@@ -176,7 +176,7 @@ var AccionView_ = Ajax.extend(function(){
                     Tools.notify.ok({
                         content: lang.mensajes.MSG_3,
                         callback: function() {
-                            _public.getGridAcciones();
+                            public.getGridAcciones();
                         }
                     });
                 }else if (parseInt(data.result) === 2) {//ya existe
@@ -188,8 +188,8 @@ var AccionView_ = Ajax.extend(function(){
         });
     };
     
-    _public.postEditAccion = function(){
-        _public.parent.send({
+    public.postEditAccion = function(){
+        public.parent.send({
             flag: 2,
             element: '#'+tabs.AXI+'btnSbAccion',
             root: _private.config.controller + 'postMantenimientoAccion',
@@ -216,14 +216,14 @@ var AccionView_ = Ajax.extend(function(){
         });
     };
     
-    _public.postDeleteAccion = function(btn,id){
+    public.postDeleteAccion = function(btn,id){
         Tools.notify.confirm({
             content: lang.mensajes.MSG_11,
             callbackSI: function() {
-                _public.parent.send({
+                public.parent.send({
                     flag: 3,
                     element: btn,
-                    root: _private.config.controller + 'postMantenimientoAccion',
+                    root: _private.config.controller + 'postDeleteAccion',
                     fnServerParams: function(sData) {
                         sData.push({name: '_idAccion', value: id});
                     },
@@ -242,5 +242,5 @@ var AccionView_ = Ajax.extend(function(){
         });
     };
     
-    return _public;
+    return public;
 }());

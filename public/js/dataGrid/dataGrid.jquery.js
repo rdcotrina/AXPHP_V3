@@ -1093,7 +1093,7 @@
                 }
                 
                 /*agregando <th> por txt de accion al inicio de cabecera*/
-                if (_private.positionAxion.toLowerCase() === 'first') {
+                if (_private.positionAxion.toLowerCase() === 'first' && oSettings.sAxions.length > 0) {
                     var th = $('<th></th>');         
                     tr.append(th);                              /*se agrega al <tr>*/
                 }
@@ -1138,7 +1138,7 @@
                 }
                 
                 /*agregando <th> por txt de accion al final de cabecera*/
-                if (_private.positionAxion.toLowerCase() === 'last') {
+                if (_private.positionAxion.toLowerCase() === 'last' && oSettings.sAxions.length > 0) {
                     var th = $('<th></th>');         
                     tr.append(th);                              /*se agrega al <tr>*/
                 }
@@ -1824,7 +1824,7 @@
              * @returns {$}
              */
             _private.axionButtons = function(r, data, oSettings) {
-                var buttons = oSettings.sAxions.buttons;
+                var buttons = (oSettings.sAxions.buttons !== undefined)?oSettings.sAxions.buttons:[];
                 var group   = (oSettings.sAxions.group !== undefined) ? oSettings.sAxions.group : '';
                 
                 /*verificar si axiones sera grupal*/

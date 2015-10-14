@@ -42,6 +42,10 @@ class MenuController extends \Vendor\Controller{
         echo json_encode(self::$menuModel->mantenimientoMenu());
     }
     
+    public function postOrdenar() {
+        echo json_encode(self::$menuModel->ordenar());
+    }
+    
     public function getMenuN($flag,$criterio='',$criterio2='') {
         return self::$menuModel->consultasMenu($flag,$criterio,$criterio2);
     }

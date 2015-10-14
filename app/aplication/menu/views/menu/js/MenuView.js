@@ -13,13 +13,13 @@ var MenuView_ = Ajax.extend(function(){
     
     _private.idMenu = 0;
     
-    var _public = {};
+    var public = {};
 
-    _public.init = function () {
-        _public.parent = this; // el padre == Ajax
+    public.init = function () {
+        public.parent = this; // el padre == Ajax
     };
     
-    _public.main = function(){
+    public.main = function(){
         Tools.addTab({
             id: tabs.MENU,
             label: Exe.getTitle(),
@@ -29,10 +29,10 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
-    _public.index = function(title){
-        _public.parent.send({
+    public.index = function(title){
+        public.parent.send({
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,3),
+            root: _private.config.controller + public.parent.__method__(this,3),
             fnServerParams: function(sData) {
                 sData.push({name: '_rootTitle', value: title});
             },
@@ -42,15 +42,15 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
-    _public.formNewMenu = function(btn,nivel,parent){
+    public.formNewMenu = function(btn,nivel,parent){
         _private.nivel = nivel;
         _private.parent= parent;
         
-        _public.parent.send({
+        public.parent.send({
             element: btn,
             gifProcess: true,
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,4),
+            root: _private.config.controller + public.parent.__method__(this,4),
             fnCallback: function(data) {
                 $('#cont-modal').append(data);  /*los formularios con append*/
                 $('#' + tabs.MENU + 'formNewMenu').modal('show');
@@ -58,13 +58,13 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
-    _public.formEditMenu = function(id,nivel){
+    public.formEditMenu = function(id,nivel){
         _private.idMenu = id;
         _private.nivel = nivel;
-        _public.parent.send({
+        public.parent.send({
             gifProcess: true,
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,5),
+            root: _private.config.controller + public.parent.__method__(this,5),
             fnServerParams: function(sData) {
                 sData.push({name: '_idMenu', value: _private.idMenu});
             },
@@ -75,11 +75,11 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
-    _public.postNewMenu = function(){
-        _public.parent.send({
+    public.postNewMenu = function(){
+        public.parent.send({
             flag: 1,
             element: '#'+tabs.MENU+'btnGrabaMnu',
-            root: _private.config.controller + _public.parent.__method__(this,6),
+            root: _private.config.controller + public.parent.__method__(this,6),
             form: '#'+tabs.MENU+'formNewMenu',
             fnServerParams: function(sData) {
                 sData.push({name: '_nivel', value: _private.nivel});
@@ -90,25 +90,29 @@ var MenuView_ = Ajax.extend(function(){
                     Tools.notify.ok({
                         content: lang.mensajes.MSG_3,
                         callback: function() {
-                            _public.listaMenu();
-                            _private.nivel = '';
-                            _private.parent = '';
+                            public.listaMenu();
+//                            _private.nivel = '';
+//                            _private.parent = '';
                         }
                     });
                 }else if (parseInt(data.result) === 2) {//ya existe
                     Tools.notify.error({
                         content: lang.mensajes.MSG_4
                     });
+                }else if (parseInt(data.result) === 3) {//ya existe
+                    Tools.notify.error({
+                        content: lang.Menu.MNUEXIST
+                    });
                 }
             }
         });
     };
     
-    _public.postEditMenu = function(){
-        _public.parent.send({
+    public.postEditMenu = function(){
+        public.parent.send({
             flag: 2,
             element: '#'+tabs.MENU+'btnEdMnu',
-            root: _private.config.controller + _public.parent.__method__(this,7),
+            root: _private.config.controller + public.parent.__method__(this,7),
             form: '#'+tabs.MENU+'formEditMenu',
             fnServerParams: function(sData) {
                 sData.push({name: '_idMenu', value: _private.idMenu});
@@ -119,7 +123,7 @@ var MenuView_ = Ajax.extend(function(){
                     Tools.notify.ok({
                         content: lang.mensajes.MSG_10,
                         callback: function() {
-                            _public.listaMenu();
+                            public.listaMenu();
                             _private.idMenu = 0;
                             _private.nivel = 0;
                             Tools.closeModal('#' + tabs.MENU + 'formEditMenu');
@@ -129,29 +133,37 @@ var MenuView_ = Ajax.extend(function(){
                     Tools.notify.error({
                         content: lang.mensajes.MSG_4
                     });
+                }else if (parseInt(data.result) === 3) {//ya existe
+                    Tools.notify.error({
+                        content: lang.Menu.AJAXEXIST
+                    });
+                }else if (parseInt(data.result) === 4) {//ya existe
+                    Tools.notify.error({
+                        content: lang.Menu.ALIASEXIST
+                    });
                 }
             }
         });
     };
     
-    _public.postDeleteMenu = function(id){
+    public.postDeleteMenu = function(id){
         var $this = this;
         Tools.notify.confirm({
             content: lang.mensajes.MSG_11,
             callbackSI: function() {
-                _public.parent.send({
+                public.parent.send({
                     flag: 3,
                     gifProcess: true,
-                    root: _private.config.controller + _public.parent.__method__($this,8),
+                    root: _private.config.controller + public.parent.__method__($this,8),
                     fnServerParams: function(sData) {
                         sData.push({name: '_idMenu', value: id});
                     },
                     fnCallback: function(data) {
-                        if (!isNaN(data.result) && parseInt(data.result) === 1) {
+                        if (parseInt(data.result) === 1) {
                             Tools.notify.ok({
                                 content: lang.mensajes.MSG_6,
                                 callback: function() {
-                                    _public.listaMenu();
+                                    public.listaMenu();
                                 }
                             });
                         }
@@ -161,46 +173,40 @@ var MenuView_ = Ajax.extend(function(){
         });
     };
     
-    _public.listaMenu = function(){
-        _public.parent.send({
+    public.listaMenu = function(){
+        public.parent.send({
             dataType: 'html',
             gifProcess: true,
-            root: _private.config.controller + _public.parent.__method__(this,9),
+            root: _private.config.controller + public.parent.__method__(this,9),
             fnCallback: function(data) {
                 $('.cont-listadominios').html(data);
             }
         });
     };
     
-    _public.postOrdenar = function() {
-        var tipo = Tools.getParam(arguments[0]);
-        var ids = Tools.getParam(arguments[1]);
+    public.postOrdenar = function() {
+        var nivel = parseInt(Tools.getParam(arguments[0]));
+        var ids   = Tools.getParam(arguments[1]);
 
-        switch (tipo) {
-            case 'DOM': /*ordenear modulos*/
-                _public.postSortDominios(ids);
-                break;
-            case 'MOD': /*ordenear modulos*/
-                _public.postSortModulos(ids);
-                break;
-            case 'MNU': /*ordenear menu principal*/
-                _public.postSortMenu(ids);
-                break;
-            case 'OPC': /*ordenear opciones*/
-                _public.postSortOpciones(ids);
-                break;
-            case 'OPC5': /*ordenear opciones*/
-                _public.postSortOpciones5(ids);
-                break;
-            case 'OPC6': /*ordenear opciones*/
-                _public.postSortOpciones6(ids);
-                break;
-        }
+        var srtingIDs = ids.split(",");
+        var numeroPalabras = srtingIDs.length;
+
+        public.parent.send({
+            flag: 1,
+            fnServerParams: function(sData) {
+                sData.push({name: '_ids', value: ids});
+                sData.push({name: '_nivel', value: nivel});
+            },
+            root: _private.config.controller + 'postOrdenar',
+            fnCallback: function(data) {
+                if (parseInt(data.result) === 1) {
+                    Tools.notify.ok({
+                        content: lang.mensajes.MSG_12
+                    });
+                }
+            }
+        });
     };
     
-    _public.postSortDominios = function(ids){
-        alert(ids)
-    };
-    
-    return _public;
+    return public;
 }());

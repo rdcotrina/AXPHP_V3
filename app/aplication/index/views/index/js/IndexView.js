@@ -8,13 +8,13 @@ var IndexView_ = Ajax.extend(function(){
     
     _private.nivel = 0;
     
-    var _public = {};
+    var public = {};
 
-    _public.init = function () {
-        _public.parent = this; // el padre == Ajax
+    public.init = function () {
+        public.parent = this; // el padre == Ajax
     };
     
-    _public.main = function(){
+    public.main = function(){
         Tools.addTab({
             id: tabs.MENU,
             label: Exe.getTitle(),
@@ -24,10 +24,10 @@ var IndexView_ = Ajax.extend(function(){
         });
     };
     
-    _public.index = function(title){
-        _public.parent.send({
+    public.index = function(title){
+        public.parent.send({
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,3),
+            root: _private.config.controller + public.parent.__method__(this,3),
             fnServerParams: function(sData) {
                 sData.push({name: '_rootTitle', value: title});
             },
@@ -37,12 +37,12 @@ var IndexView_ = Ajax.extend(function(){
         });
     };
     
-    _public.formNewMenu = function(btn,nivel){
+    public.formNewMenu = function(btn,nivel){
         _private.nivel = nivel;
-        _public.parent.send({
+        public.parent.send({
             element: btn,
             dataType: 'html',
-            root: _private.config.controller + _public.parent.__method__(this,4),
+            root: _private.config.controller + public.parent.__method__(this,4),
             fnCallback: function(data) {
                 $('#cont-modal').append(data);  /*los formularios con append*/
                 $('#' + tabs.MENU + 'formNewMenu').modal('show');
@@ -50,11 +50,11 @@ var IndexView_ = Ajax.extend(function(){
         });
     };
     
-    _public.postNewMenu = function(){
-        _public.parent.send({
+    public.postNewMenu = function(){
+        public.parent.send({
             flag: 1,
             element: '#'+tabs.MENU+'btnGrabaMnu',
-            root: _private.config.controller + _public.parent.__method__(this,5),
+            root: _private.config.controller + public.parent.__method__(this,5),
             form: '#'+tabs.MENU+'formNewMenu',
             fnServerParams: function(sData) {
                 sData.push({name: '_nivel', value: _private.nivel});
@@ -76,16 +76,16 @@ var IndexView_ = Ajax.extend(function(){
         });
     };
     
-    _public.listaMenu = function(){
-        _public.parent.send({
+    public.listaMenu = function(){
+        public.parent.send({
             dataType: 'html',
             gifProcess: true,
-            root: _private.config.controller + _public.parent.__method__(this,6),
+            root: _private.config.controller + public.parent.__method__(this,6),
             fnCallback: function(data) {
                 $('.cont-listadominios').html(data);
             }
         });
     };
     
-    return _public;
+    return public;
 }());

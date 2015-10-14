@@ -36,8 +36,6 @@ define('MENU_12','Editar Menú');
 
 /*===========================ACCIONES==================================*/
 define('AXI_1','Acciones');
-//define('AXI_2','Formulario nueva acción');
-//define('AXI_3','Formulario editar acción');
 define('AXI_4','Nueva Acción');
 define('AXI_5','Editar Acción');
 define('AXI_6','Acción');
@@ -52,5 +50,8 @@ define('AXI_14','Grabar nueva acción');
 define('AXI_15','Actualizar acción');
 define('AXI_16','Eliminar acción');
 
-/*===========================Fases==================================*/
+/*===========================FASES==================================*/
 define("FASE_1","Fases");
+
+/*===========================ROLES==================================*/
+define("ROL_1","Roles");

@@ -42,7 +42,15 @@
                     disableOpcion(e,o);
                     /*si existe id a gestionar se muestra el menu*/
                     if(o.idGestionar.length > 0 || _instance === 1){ 
-                        $(o.menu).css({display: 'block', left: e.pageX - 150, top: e.pageY - 250});
+                        var posMenu = $('#mainBodyHtml').is('.menu-on-top');
+                        var ll = e.pageX - 350;//menu top: 150 ... menu lateral: 350
+                        var tt = e.pageY - 140;//menu top: 250 ... menu lateral: 140
+                            
+                        if(posMenu){/*menu tiene la posicion top*/
+                            ll = e.pageX - 150;
+                            tt = e.pageY - 250;
+                        }
+                        $(o.menu).css({display: 'block', left: ll, top: tt});
                         return false;
                     }
                     return false;

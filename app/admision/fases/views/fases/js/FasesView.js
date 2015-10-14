@@ -6,24 +6,24 @@ var FasesView_ = Ajax.extend(function(){
         controller: 'admision/fases/Fases/'
     };
     
-    var _public = {};
+    var public = {};
     
-    _public.init = function () {
-        _public.parent = this; // el padre == Ajax
+    public.init = function () {
+        public.parent = this; // el padre == Ajax
     };
     
-    _public.main = function(){
+    public.main = function(){
         Tools.addTab({
             id: tabs.FASE,
             label: Exe.getTitle(),
             fnCallback: function() {
-                _public.index(Exe.getTitle());
+                public.index(Exe.getTitle());
             }
         });
     };
     
-    _public.index = function(title){
-        _public.parent.send({
+    public.index = function(title){
+        public.parent.send({
             dataType: 'html',
             root: _private.config.controller + 'index',
             fnServerParams: function(sData) {
@@ -31,12 +31,12 @@ var FasesView_ = Ajax.extend(function(){
             },
             fnCallback: function(data) {
                 $('#' + tabs.FASE + '_CONTAINER').html(data);
-                _public.getGridFases();
+                public.getGridFases();
             }
         });
     };
     
-    _public.getGridFases = function (){
+    public.getGridFases = function (){
         var pNew    = Tools.getPermiso("FASENEW");
         var pEdit   = Tools.getPermiso("FASEED");
         var pDelete = Tools.getPermiso("FASEDE");
@@ -116,6 +116,6 @@ var FasesView_ = Ajax.extend(function(){
     };
     
     
-    return _public;
+    return public;
     
 }());

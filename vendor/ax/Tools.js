@@ -512,7 +512,7 @@ var Tools = Class.extend(function() {
                 $c.addClass('label-success');
                 break;
             case '0':
-                $c.html('Inctivo');
+                $c.html('Inactivo');
                 $c.addClass('label-danger');
                 break;
         }
