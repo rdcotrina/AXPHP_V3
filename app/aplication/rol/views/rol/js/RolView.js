@@ -52,7 +52,7 @@ var RolView_ = Ajax.extend(function(){
                 icono: pNew.icono,
                 titulo: pNew.accion,
                 class: pNew.theme,
-                ajax: "Exe.RolVew.formNewRol(this);"
+                ajax: "Exe.RolView.formNewRol(this);"
             }],
             tColumns: [
                 {title: lang.Rol.ROL,field: "rol",width: "400",sortable: true,filter: {type: 'text'}},
@@ -96,7 +96,7 @@ var RolView_ = Ajax.extend(function(){
                         titulo: pAcc.accion,
                         class: pAcc.theme,
                         ajax: {
-                            fn: "Roles.getFormAccesos",
+                            fn: "Exe.RolView.getFormAccesos",
                             serverParams: ["idrol","rol"]
                         }
                     },{
@@ -119,7 +119,7 @@ var RolView_ = Ajax.extend(function(){
                         titulo: pEdit.accion,
                         class: pEdit.theme,
                         ajax: {
-                            fn: "Roles.getEditRol",
+                            fn: "Exe.RolView.getEditRol",
                             serverParams: "idrol"
                         }
                     }, {
@@ -128,7 +128,7 @@ var RolView_ = Ajax.extend(function(){
                         titulo: pDelete.accion,
                         class: pDelete.theme,
                         ajax: {
-                            fn: "Roles.postDeleteRol",
+                            fn: "Exe.RolView.postDeleteRol",
                             serverParams: "idrol"
                         }
                     }]

@@ -58,6 +58,10 @@
         
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo BASE_URL; ?>public/css/menuRight/menuRight.css">
         
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo BASE_URL ?>public/theme/smartadmin/js/plugin/chosen/chosen.css">
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo BASE_URL ?>public/theme/smartadmin/js/plugin/clockpicker/jquery-clockpicker.min.css">
+        
         <script src="<?php echo $rutaLayout['js']; ?>plugin/pace/pace.min.js"></script>
         <script src="<?php echo $rutaLayout['js']; ?>libs/jquery-2.0.2.min.js"></script>
         <script>

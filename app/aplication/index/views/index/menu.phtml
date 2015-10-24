@@ -65,7 +65,7 @@ foreach (Obj()->Session->get('sys_menu') as $menu1){
                     else:
                         /*tiene subnivel*/
                         $nav .= '
-                            <li>
+                            <li class="wrap-top">
                                 <a href="javascript:;" class="cortar">'.$menu2['opcion'].'</a>
                                 <ul>';
                         foreach (Obj()->Session->get('sys_menu') as $menu3){
@@ -81,7 +81,7 @@ foreach (Obj()->Session->get('sys_menu') as $menu1){
                                 else:
                                     /*tiene subnivel*/
                                     $nav .= '
-                                        <li>
+                                        <li class="wrap-top">
                                             <a href="javascript:;" class="cortar">'.$menu3['opcion'].'</a>
                                             <ul>';
                                         foreach (Obj()->Session->get('sys_menu') as $menu4){
@@ -97,7 +97,7 @@ foreach (Obj()->Session->get('sys_menu') as $menu1){
                                                 else:
                                                     /*tiene subnivel*/
                                                     $nav .= '
-                                                        <li>
+                                                        <li class="wrap-top">
                                                             <a href="javascript:;" class="cortar">'.$menu4['opcion'].'</a>
                                                             <ul>';
                                                     foreach (Obj()->Session->get('sys_menu') as $menu5){
@@ -113,7 +113,7 @@ foreach (Obj()->Session->get('sys_menu') as $menu1){
                                                             else:
                                                                 /*tiene subnivel*/
                                                                 $nav .= '
-                                                                    <li>
+                                                                    <li class="wrap-top">
                                                                         <a href="javascript:;" class="cortar">'.$menu5['opcion'].'</a>
                                                                         <ul>';
                                                                 foreach (Obj()->Session->get('sys_menu') as $menu6){

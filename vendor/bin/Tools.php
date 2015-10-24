@@ -18,7 +18,7 @@ final class Tools {
     
     public static function capitalize($cadena){
         $c = strtoupper (substr($cadena, 0,1));
-        $d = strtolower(substr($cadena, 1));
+        $d = substr($cadena, 1);
         
         $r = $c.$d;
         

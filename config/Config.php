@@ -17,11 +17,12 @@ define('APP_LANG', 'ES');                                                    #id
 
 define('DB_ENTORNO', 'D');                                                   #D=DESARROLLO, P=PRODUCCION
 define('DB_MOTOR', 'sql');
-//define('DB_HOST', '192.168.1.38');//erpsolution.mine.nu
-//define('DB_PASS', 'Pr0y3ct0');
-define('DB_HOST', 'WIN-UUF8TPB3RS5');
+define('DB_HOST', '192.168.1.38');//erpsolution.mine.nu
+define('DB_PASS', 'Pr0y3ct0');
+//define('DB_HOST', 'WIN-UUF8TPB3RS5');
+//define('DB_PASS', '123');
+
 define('DB_USER', 'sa');
-define('DB_PASS', '123');
 define('DB_NAME', 'erpsolution');
 
 define('DB_PORT', '3306');

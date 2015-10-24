@@ -97,9 +97,9 @@ var Exe_ = Class.extend(function() {
 
         var llamada = scriptName;               //aplication::MenuView
         var c = llamada.split('::');
-        var l1 = c[0];                          //aplication
-        var l2 = c[1].substr(0,c[1].length-4);  //menu
-        var l3 = c[1];                          //MenuView
+        var l1 = c[0];                          //namespace
+        var l2 = c[1];                          //opcion
+        var l3 = c[2];                          //controller view
         
         llamada = l1+'::'+l2.toLowerCase()+'::'+l3;
         

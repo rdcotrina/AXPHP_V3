@@ -22,7 +22,7 @@ final class BuiltForm{
     private $_validate = array();
 
     /*
-     *   new FormFactory([
+     *   new BuiltForm([
      *       "title"=>"title",
      *       "alias"=>T2,
      *       "width"=>"100%",
@@ -135,8 +135,8 @@ final class BuiltForm{
         $html = 
           '<section>'
             . '<div class="row">'
-                . $this->getLabel($label)
-                . $this->getField($field)
+                . $this->getLabel($label,$field)
+                . $this->getField($label,$field)
             . '</div>'
         . '</section>';
         
@@ -146,7 +146,7 @@ final class BuiltForm{
     /*
      * CREA EL <div> CONTENEDOR DEL FIELD
      */
-    private function getField($field) {
+    private function getField($label,$field) {
         $html = '';
         if(empty($field)){
             $html .= '<p>[field] no definido</p>';
@@ -168,7 +168,7 @@ final class BuiltForm{
                     if(empty($attr)){
                         $html .= '[attr] de field no definido';
                     }else{
-                        $html .= $this->createField($attr,$iconhelp,$help);
+                        $html .= $this->createField($attr,$iconhelp,$help,$field,$label);
                     }
                     if($iconrequired){
                         $this->_helpRequiredForm = true;
@@ -183,8 +183,8 @@ final class BuiltForm{
     /*
      * Crea elemento
      */
-    private function createField($attr,$iconhelp,$help) {
-        $type = strtolower($this->getTypeField($attr));
+    private function createField($attr,$iconhelp,$help,$field,$label) {
+        $type = strtolower($this->_findAttr($attr,'type'));
         
         switch($type) {
             case 'text':
@@ -194,13 +194,13 @@ final class BuiltForm{
                     . '<b class="tooltip tooltip-top-right"><i class="'.$iconhelp.' txt-color-teal"></i> '.$help.'</b>';
                 break;
             case 'select':
-                $css = $type;
+                $field = $this->_createSelect($field);
                 break;
             case 'checkbox':
-                $field = '<input '.$this->getAttrOpt($attr).'><i></i>';
+                $field = '<input '.$this->getAttrOpt($attr).'><i></i>'.$label['label'];
                 break;
             case 'radio':
-                $css = $type;
+                $field = '<input '.$this->getAttrOpt($attr).'><i></i>'.$label['label'];
                 break;
             case 'textarea':
                 $field = 
@@ -209,7 +209,7 @@ final class BuiltForm{
                     . '<b class="tooltip tooltip-top-right"><i class="'.$iconhelp.' txt-color-teal"></i> '.$help.'</b>';
                 break;
             default:
-                $css = '';
+                $field = '[no existe objeto]';
                 break;
         }
         return $field;
@@ -220,7 +220,7 @@ final class BuiltForm{
     /*
      * Crea el label de elemento de formulario
      */
-    private function getLabel($label){
+    private function getLabel($label,$field){
         $html = '';
         if(empty($label)){
             $html .= '<p>[label] no definido</p>';
@@ -228,6 +228,7 @@ final class BuiltForm{
             $lb   = isset($label['label'])?$label['label']:'[label] de elemento no definido';
             $attr = (isset($label['attr']) && is_array($label['attr']))?$label['attr']:'';
             
+            if($this->_findAttr($field['attr'], 'type') == 'radio' || $this->_findAttr($field['attr'], 'type') == 'checkbox'){ $lb = ''; }
             $html .= '<label '.$this->getAttr($attr).'>'.$lb.'</label>';
         }
         return $html;
@@ -267,6 +268,19 @@ final class BuiltForm{
             }
         }
         return $attr;
+    }
+    
+    /*
+     * Devuelve un atributo
+     */
+    private function _findAttr($obj,$f) {
+        if(is_array($obj)){
+            foreach ($obj as $key => $value) {
+                if($key == $f){
+                    return $value;
+                }
+            }
+        }
     }
     
     /*
@@ -331,24 +345,10 @@ final class BuiltForm{
     }
     
     /*
-     * Retorna TYPE de elemento
-     */
-    private function getTypeField($obj) {
-        if(is_array($obj)){
-            foreach ($obj as $key => $value) {
-                if($key == 'type'){
-                    return $value;
-                }
-            }
-        }
-        return false;
-    }
-    
-    /*
      * Retorna css para diseño de field
      */
     private function getCssField($attr) {
-        $type = strtolower($this->getTypeField($attr));
+        $type = strtolower($this->_findAttr($attr,'type'));
         switch($type) {
             case 'text':
                 $css = 'input';
@@ -439,6 +439,81 @@ final class BuiltForm{
         }
         
         return substr_replace($rl, "", -1);
+    }
+    
+    private function _createSelect($obj) {
+        $data = isset($obj['data'])?$obj['data']:array();
+        $attr = isset($obj['attr'])?$obj['attr']:array();
+        $all  = isset($obj['labelAll'])?$obj['labelAll']:false;
+        $sel  = isset($obj['labelSelect'])?$obj['labelSelect']:true;
+        $etiq = isset($obj['etiquet'])?$obj['etiquet']:'';
+        $valo = isset($obj['value'])?$obj['value']:'';
+        $etid = isset($obj['defaultEtiquet'])?$obj['defaultEtiquet']:'';
+        $chosen  = isset($obj['chosen'])?$obj['chosen']:true;
+        
+        $id = '';
+        
+        $html = '<select ';
+        foreach ($attr as $key => $value) {
+            if($key == 'id'){ $id = $value;} /*para el chosen*/
+            $html .= $key . '="' . $value . '" ';
+        }
+        $html .= '>';
+        
+        if (count($data) > 0) {
+            if ($sel){
+                $html .= '<option value="">Seleccionar</option>';
+            }
+            if ($all){
+                $html .= '<option value="ALL">Todo(s)</option>';
+            }
+
+
+            foreach ($data as $item) {
+                
+                /*las etiquetas*/
+                if(is_array($etiq)){
+                    $desc = '';
+                    foreach ($etiq as $val) {
+                        $desc .= $item[$val].' - ';
+                    }
+                    $desc = substr_replace($desc, "", -2);
+                }else{
+                    $desc = $item[$etiq];
+                }
+                
+                /*los valores*/
+                if(is_array($valo)){
+                    $key = '';
+                    foreach ($valo as $vall) {
+                        $key .= $item[$vall].'-';
+                    }
+                    $key = substr_replace($key, "", -1);
+                }else{
+                    $key = $item[$valo];
+                }
+                
+                $selected = "";
+                if ($key == $etid) {
+                    $selected = '  selected="selected"';
+                }
+
+                $html .= '<option title="' . $desc . '" value="' . $key . '" ' . $selected . '>' . $desc . '</option>';
+            }
+
+            $html .= '</select>';
+        }
+        else{
+            $html .= '<option value=""> - Sin datos - </option></select>';
+        }
+        if($chosen){
+            $html .= '<script>$("#'.$id.'").chosen();$("#'.$id.'_chosen").css("width","100%");</script>';
+            if(!empty($etid)){
+                $html .= '<script>$("#'.$id.'").val("'.$etid.'").trigger("chosen:updated");</script>';
+            }
+        }
+        
+        return $html;
     }
     
 }

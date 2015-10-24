@@ -10,6 +10,7 @@ define('ICON_CLOSE','fa fa-ban');
 define('THEME_CLOSE','btn btn-default xClose');
 define('LBL_ACEPTAR','Aceptar');
 define('LBL_LOCK','Se bloquedo el sistema');
+define('LBL_DESCRIPCION','Descripción');
 
 /*===========================FORMULARIO LOGIN==================================*/
 define('LBL_TITLE','Ingresar');
@@ -52,6 +53,9 @@ define('AXI_16','Eliminar acción');
 
 /*===========================FASES==================================*/
 define("FASE_1","Fases");
+define("FASE_2","Nueva Fase");
+define("FASE_3","Editar Fase");
+define("FASE_4","Ingrese una descripción para la fase.");
 
 /*===========================ROLES==================================*/
 define("ROL_1","Roles");

@@ -1,0 +1,80 @@
+<?php
+/* 
+* ---------------------------------------
+* --------- CREATED BY GS ----------
+* fecha:        24-10-2015 16:10:26 
+* Descripcion : formNew.php
+* ---------------------------------------
+*/ 
+
+$grabar = Obj()->Session->getPermiso("FASEGR");
+
+$Form = Obj()->BuiltForm->init([
+    "title" => FASE_2,
+    "alias" => FASE,
+    "ajaxSubmit" => "Exe.FaseView.postNew();",
+    "attr" => [
+        "id" => "formNew",
+        "name" => "formNew",
+        "class" => "modal fade"
+    ],
+    "noSubmit" => $grabar["permiso"] //cuando no tiene permiso de grabar, el enter en elementos no funciona
+        ]);
+
+$Form->addField([
+    "label" => [
+        "label" => LBL_DESCRIPCION,
+        "attr" => ["class" => "label col col-2"]
+    ],
+    "field" => [
+        "attr" => [
+            "type" => "text",
+            "id" => "txt_descripcion",
+            "name" => "txt_descripcion"
+        ],
+        "help" => FASE_4,
+        "iconrequired" => true,
+        "validate" => ["required:true", "minlength:3"]
+    ]
+]);
+
+$Form->addField([
+    "label" => [
+        "label" => LBL_ACTIVO,
+        "attr" => ["class" => "label col col-2"]
+    ],
+    "field" => [
+        "csswidth" => "col col-3",
+        "attr" => [
+            "type" => "checkbox",
+            "id" => "chk_activo",
+            "name" => "chk_activo",
+            "value" => "1",
+            "checked" => true
+        ]
+    ]
+]);
+
+if ($grabar["permiso"]) {
+    $Form->addButton([
+        "label" => $grabar["accion"],
+        "icon" => $grabar["icono"],
+        "attr" => [
+            "id" => "btnSave",
+            "type" => "submit",
+            "class" => $grabar["theme"]
+        ]
+    ]);
+}
+
+$Form->addButton([
+    "label" => LBL_CLOSE,
+    "icon" => ICON_CLOSE,
+    "attr" => [
+        "type" => "button",
+        "class" => THEME_CLOSE
+    ]
+]);
+
+$Form->view();
+        

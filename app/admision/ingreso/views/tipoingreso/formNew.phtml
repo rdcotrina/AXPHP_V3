@@ -1,0 +1,110 @@
+<?php
+/* 
+* ---------------------------------------
+* --------- CREATED BY GS ----------
+* fecha:        24-10-2015 16:10:58 
+* Descripcion : formNew.php
+* ---------------------------------------
+*/ 
+
+$grabar = Obj()->Session->getPermiso("TIINGR");
+
+$Form = Obj()->BuiltForm->init([
+    "title" => TIIN_4,
+    "alias" => TIIN,
+    "ajaxSubmit" => "Exe.TipoIngresoView.postNew();",
+    "attr" => [
+        "id" => "formNew",
+        "name" => "formNew",
+        "class" => "modal fade"
+    ],
+    "noSubmit" => $grabar["permiso"] //cuando no tiene permiso de grabar, el enter en elementos no funciona
+        ]);
+
+$Form->addField([
+    "label" => [
+        "label" => TIIN_6,
+        "attr" => ["class" => "label col col-2"]
+    ],
+    "field" => [
+        "attr" => [
+            "type" => "text",
+            "id" => "TXT_CAMPO",
+            "name" => "TXT_CAMPO"
+        ],
+        "help" => TIIN_10,
+        "iconrequired" => true,
+        "validate" => ["required:true", "minlength:3"]
+    ]
+]);
+
+/*demo*/
+$data = [
+    ["info"=>"Info 1","valor"=>1],
+    ["info"=>"Info 2","valor"=>2],
+    ["info"=>"Info 3","valor"=>3],
+    ["info"=>"Info 4","valor"=>4],
+    ["info"=>"Info 5","valor"=>5],
+];
+
+$Form->addField([
+    "label" => [
+        "label" => TIIN_7,
+        "attr" => ["class" => "label col col-2"]
+    ],
+    "field" => [
+        "csswidth" => "col col-8",
+        "attr" => [
+            "type" => "select",
+            "id" => "LST_CAMPO",
+            "name" => "LST_CAMPO"
+        ],
+        "data"=>$data,
+        "etiquet" => "info",
+        "value" => "valor",
+        "defaultEtiquet" => "",
+        "labelSelect" => true,
+        "labelAll" => true
+    ]
+]);
+
+$Form->addField([
+    "label" => [
+        "label" => LBL_ACTIVO,
+        "attr" => ["class" => "label col col-2"]
+    ],
+    "field" => [
+        "csswidth" => "col col-3",
+        "attr" => [
+            "type" => "checkbox",
+            "id" => "chk_activo",
+            "name" => "chk_activo",
+            "value" => "1",
+            "checked" => true
+        ]
+    ]
+]);
+
+if ($grabar["permiso"]) {
+    $Form->addButton([
+        "label" => $grabar["accion"],
+        "icon" => $grabar["icono"],
+        "attr" => [
+            "id" => "btnSave",
+            "type" => "submit",
+            "class" => $grabar["theme"]
+        ]
+    ]);
+}
+
+$Form->addButton([
+    "label" => LBL_CLOSE,
+    "icon" => ICON_CLOSE,
+    "attr" => [
+        "type" => "button",
+        "class" => THEME_CLOSE
+    ]
+]);
+
+$Form->view();
+        

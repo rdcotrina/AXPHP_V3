@@ -1,8 +1,20 @@
 <?php
-namespace Admision\Fases\Models;
+/* 
+* ---------------------------------------
+* --------- CREATED BY GS ----------
+* fecha:        24-10-2015 16:10:58 
+* Descripcion : TipoIngresoModel.php
+* ---------------------------------------
+*/ 
 
-class FasesModel extends \Vendor\DataBase{
- 
+namespace Admision\Ingreso\Models;
+    
+class TipoIngresoModel extends \Vendor\DataBase{
+
+    private $_flag;
+    private $_primaryKey;
+    private $_usuario;
+
     /*para el grid*/
     private $_pDisplayStart;
     private $_pDisplayLength;
@@ -16,8 +28,11 @@ class FasesModel extends \Vendor\DataBase{
         $this->_getPost();
     }
     
-    
     private function _getPost(){
+        $this->_flag        = Obj()->Get->getPost("_flag");
+        $this->_primaryKey  = Obj()->Aes->de(Obj()->Get->getPost("_primaryKey"));
+        $this->_CAMPO       = Obj()->Get->getPost(TIIN."TXT_CAMPO");
+        $this->_usuario     = Obj()->Session->get("sys_persona");
         
         $this->_pDisplayStart  =   Obj()->Get->getPost("pDisplayStart"); 
         $this->_pDisplayLength =   Obj()->Get->getPost("pDisplayLength"); 
@@ -28,7 +43,7 @@ class FasesModel extends \Vendor\DataBase{
     }
     
     public function getGrid(){
-        $query = "EXEC sp_crmFasesGrid :iDisplayStart,:iDisplayLength,:pOrder,:pFilterCols,:sExport ;";
+        $query = "EXEC sp_PROCEDIMIENTOGrid :iDisplayStart,:iDisplayLength,:pOrder,:pFilterCols,:sExport ;";
         $parms = array(
             ":iDisplayStart" => $this->_pDisplayStart,
             ":iDisplayLength" => $this->_pDisplayLength,
@@ -37,6 +52,19 @@ class FasesModel extends \Vendor\DataBase{
             ":sExport" => $this->_sExport
         );
         $data = $this->queryAll($query,$parms);
+       
+        return $data;
+    }
+    
+    public function mantenimiento() {
+        $query = "EXEC sp_PROCEDIMIENTOMantenimiento :flag,:primaryKey,:usuario ;";
+        
+        $parms = array(
+            ":flag" => $this->_flag,
+            ":primaryKey" => $this->_primaryKey,
+            ":usuario" => $this->_usuario
+        );
+        $data = $this->queryOne($query,$parms);
        
         return $data;
     }

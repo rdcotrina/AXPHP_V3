@@ -36,6 +36,11 @@ lang.Acciones.EXISTAXION = 'Acción ya existe';
 lang.Acciones.EXISTALAIS = 'Alias ya existe';
 lang.Acciones.TITLEEXPORT = 'RELACIÓN DE ACCIONES';
 
-/*-----------------------FASES-------------------------*/
+/*-----------------------ROL-------------------------*/
 lang.Rol = {};
 lang.Rol.ROL = 'Rol' ;
+
+/*-----------------------FASE-------------------------*/
+lang.Fase = {};
+lang.Fase.FASE = 'Fase';
+lang.Fase.TITLEEXPORT = 'LISTADO DE FASES';

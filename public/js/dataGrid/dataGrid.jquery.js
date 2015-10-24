@@ -48,7 +48,7 @@
             
             _private.cssTable       = 'table table-striped table-hover table-condensed dataTable table-bordered dataGrid';
                     
-            _private.positionAxion  = 'last';                           /*posicion de las acciones*/
+            _private.positionAxion  = 'first';                           /*posicion de las acciones*/
             
             _private.btnFirst       = 'fa fa-fast-backward';
             
@@ -1085,6 +1085,9 @@
             _private.addTrSearchCols = function(oSettings){
                 var tr = $('<tr></tr>'),
                     chkExist = 0;
+            
+                var gBtn = (oSettings.sAxions.group !== undefined)?oSettings.sAxions.group:[];
+                var bBtn = (oSettings.sAxions.buttons !== undefined)?oSettings.sAxions.buttons:[];
                 
                 /*agregando <th> por numeracion*/
                 if(oSettings.tNumbers){
@@ -1093,7 +1096,7 @@
                 }
                 
                 /*agregando <th> por txt de accion al inicio de cabecera*/
-                if (_private.positionAxion.toLowerCase() === 'first' && oSettings.sAxions.length > 0) {
+                if (_private.positionAxion.toLowerCase() === 'first' && (gBtn.length > 0 || bBtn.length > 0)) {
                     var th = $('<th></th>');         
                     tr.append(th);                              /*se agrega al <tr>*/
                 }
@@ -1138,7 +1141,7 @@
                 }
                 
                 /*agregando <th> por txt de accion al final de cabecera*/
-                if (_private.positionAxion.toLowerCase() === 'last' && oSettings.sAxions.length > 0) {
+                if (_private.positionAxion.toLowerCase() === 'last' && (gBtn.length > 0 || bBtn.length > 0)) {
                     var th = $('<th></th>');         
                     tr.append(th);                              /*se agrega al <tr>*/
                 }
@@ -1230,7 +1233,7 @@
 
                     var title   = (oSettings.tColumns[c].title !== undefined) ? oSettings.tColumns[c].title : '';
                     var field   = (oSettings.tColumns[c].field !== undefined) ? oSettings.tColumns[c].field : '';
-                    var sortable= (oSettings.tColumns[c].sortable !== undefined) ? ' sorting' : '';
+                    var sortable= (oSettings.tColumns[c].sortable !== undefined && oSettings.tColumns[c].sortable) ? ' sorting' : '';
                     var width   = (oSettings.tColumns[c].width !== undefined) ? oSettings.tColumns[c].width + oSettings.tWidthFormat : '';
                     var search  = (oSettings.tColumns[c].filter !== undefined) ? oSettings.tColumns[c].filter : false;   /*para activar busqueda de columnas*/
                    
@@ -1240,20 +1243,21 @@
                     th.append(title);                                                 /*se agrega el titulo*/
                     th.attr('data-order',field);
                     th.addClass('col_'+field);                                      /*para tShowHideColumn*/
-                    
+                   
                     /*agregando css para sortable*/
                     if(sortable !== ''){
                         th.addClass(sortable);
-                        th.data(field);
+                        
                         th.click(function(){
                             _private.executeSorting(this,oSettings);
                         });
                     }
                     /*verificar si se inicio ordenamiento y agegar class a th*/
                     var cad = oSettings.pOrderField.split(' ');
+                    
                     if (cad[0] === field) {
                         th.removeClass(sortable);
-                        th.addClass('sorting_' + cad[1])
+                        th.addClass('sorting_' + cad[1].toLowerCase())
                     }
                     
                     if(search instanceof Object){    /*se verifica si existe busquedas por columnas*/
@@ -1782,7 +1786,7 @@
                                 var a   = $('<a></a>');
                                 a.attr('id', 'btn_axion_'+oSettings.tObjectTable + '_' + r+'_'+ig+'_'+i);
                                 a.attr('href','javascript:;');
-                                a.html(titulo);
+                                a.html('<i class="'+icono+'"></i> '+titulo);
                                 /*agregando ajax*/
                                 if (fn) {
                                     a.attr('onclick',fn);

@@ -396,7 +396,7 @@ var Tools = Class.extend(function() {
         }
 
         $(id).modal('hide');
-        setTimeout("$('" + id + "').remove()", 1000);
+        setTimeout("$('" + id + ", .modalFormBoot').remove()", 200);
     };
     
     /*anular submit en en evento enter de elementos de un formulario*/

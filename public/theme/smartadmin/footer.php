@@ -45,6 +45,9 @@
     <!-- CONTEXTMENU -->
     <script src="<?php echo BASE_URL; ?>public/js/menuRight/menuRight.js"></script>
     
+    <!-- JQUERY CHOSEN INPUT -->
+    <script src="<?php echo BASE_URL ?>public/theme/smartadmin/js/plugin/chosen/chosen.jquery.js"></script>
+    
     <!-- FastClick: For mobile devices: you can disable this in app.js -->
     <script src="<?php echo $rutaLayout['js']; ?>plugin/fastclick/fastclick.min.js"></script>
 

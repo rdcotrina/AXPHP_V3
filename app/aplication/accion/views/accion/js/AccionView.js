@@ -93,7 +93,7 @@ var AccionView_ = Ajax.extend(function(){
                 class: pNew.theme,
                 ajax: "Exe.AccionView.formNewAccion(this);"
             }],
-        sExport:{
+            sExport:{
                 buttons:{excel:true,pdf:true},
                 nameFile: 'axs',
                 orientation: 'landscape',
@@ -176,7 +176,7 @@ var AccionView_ = Ajax.extend(function(){
                     Tools.notify.ok({
                         content: lang.mensajes.MSG_3,
                         callback: function() {
-                            public.getGridAcciones();
+                            Tools.refreshGrid(_private.idGrid);
                         }
                     });
                 }else if (parseInt(data.result) === 2) {//ya existe
